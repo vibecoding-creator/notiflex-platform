@@ -53,7 +53,7 @@ func main() {
 	http.HandleFunc("/id", id)
 	http.HandleFunc("/version", versionHandler)
 
-	log.Println("Notiflex API server starting on :8080")
+	log.Println("Notiflex API v0.1.2 server starting on :8080")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
 	}

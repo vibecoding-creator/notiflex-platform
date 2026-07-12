@@ -1,0 +1,38 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: pod-restart-alert
+  namespace: monitoring
+  labels:
+    release: kube-prometheus
+spec:
+  groups:
+    - name: notiflex-alerts
+      interval: 1m
+      rules:
+        - alert: PodRestartTooMany
+          expr: increase(kube_pod_container_status_restarts_total{namespace="notiflex"}[5m]) > 2
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Pod {{ $labels.pod }} 재시작 과다"
+            description: "5분 내 {{ $value }}회 재시작되었습니다"
+
+        - alert: PodCrashLooping
+          expr: kube_pod_container_status_restarts_total{namespace="notiflex"} > 5
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Pod {{ $labels.pod }} CrashLooping 발생"
+            description: "총 {{ $value }}회 재시작 (너무 많음)"
+
+        - alert: ApiPodDown
+          expr: kube_pod_status_phase{namespace="notiflex", pod=~"notiflex-api.*", phase!="Running"} == 1
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Notiflex API Pod이 다운됨"
+            description: "Pod {{ $labels.pod }}이 {{ $labels.phase }} 상태입니다"

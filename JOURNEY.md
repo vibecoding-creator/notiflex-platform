@@ -19,7 +19,7 @@
 | ch4 | 4.2 메트릭 모니터링 | ✅ | 2026-07-11 | Prometheus + Grafana 설치, 대시보드 확인 |
 | ch4 | 4.3 로그 수집 | ✅ | 2026-07-12 | Loki + Fluent Bit 설치, {job="fluentbit"} 로그 확인 |
 | ch4 | 4.4 알림 | ✅ | 2026-07-12 | PrometheusRule (PodRestart, PodCrashLooping, ApiPodDown) 설정 |
-| ch5 | 5.2 트래픽 관리 | ⬜ | | |
+| ch5 | 5.2 트래픽 관리 | ✅ | 2026-07-13 | Gateway API 설정, 외부 IP 35.216.54.5로 접근 가능 |
 | ch5 | 5.3 무중단 배포 | ⬜ | | |
 | ch6 | 6.1 캐시 | ⬜ | | |
 | ch6 | 6.2 시크릿 관리 | ⬜ | | |

@@ -1,0 +1,24 @@
+serviceAccount:
+  create: true
+
+config:
+  outputs: |
+    [OUTPUT]
+        Name loki
+        Match *
+        Host loki-gateway.monitoring.svc.cluster.local
+        Port 80
+        Labels job=fluentbit, cluster=notiflex-cluster
+
+resources:
+  requests:
+    cpu: 25m
+    memory: 64Mi
+  limits:
+    cpu: 100m
+    memory: 128Mi
+
+tolerations:
+  - key: node-role.kubernetes.io/master
+    operator: Exists
+    effect: NoSchedule

@@ -1,0 +1,33 @@
+deploymentMode: SingleBinary<->SimpleScalable
+
+loki:
+  auth_enabled: false
+  useTestSchema: true
+
+  storage:
+    type: filesystem
+    bucketNames:
+      chunks: chunks
+      ruler: ruler
+      admin: admin
+
+  limits_config:
+    retention_period: 720h
+
+singleBinary:
+  replicas: 1
+  resources:
+    requests:
+      cpu: 50m
+      memory: 256Mi
+    limits:
+      cpu: 200m
+      memory: 512Mi
+
+persistence:
+  enabled: true
+  size: 10Gi
+
+grafana:
+  datasource:
+    isDefault: false

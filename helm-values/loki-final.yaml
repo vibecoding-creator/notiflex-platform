@@ -1,0 +1,49 @@
+deploymentMode: SingleBinary<->SimpleScalable
+
+loki:
+  auth_enabled: false
+  useTestSchema: true
+
+  storage:
+    type: filesystem
+    bucketNames:
+      chunks: chunks
+      ruler: ruler
+      admin: admin
+
+  # Replication factor를 1로 설정 (단일 Pod)
+  ingester:
+    lifecycler:
+      ring:
+        replication_factor: 1
+
+  # Cache 완전 비활성화
+  chunk_cache_config:
+    memcached:
+      batch_size: 4
+      parallelism: 100
+    memcached_client:
+      update_interval: 0s
+
+  results_cache_config:
+    cache:
+      memcached_client:
+        update_interval: 0s
+
+singleBinary:
+  replicas: 1
+  resources:
+    requests:
+      cpu: 50m
+      memory: 256Mi
+    limits:
+      cpu: 200m
+      memory: 512Mi
+
+persistence:
+  enabled: true
+  size: 10Gi
+
+grafana:
+  datasource:
+    isDefault: false

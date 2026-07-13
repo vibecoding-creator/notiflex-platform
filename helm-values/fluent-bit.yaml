@@ -1,0 +1,29 @@
+# Fluent Bit Helm values
+# 로그 수집기 (각 노드에서 Pod 로그 수집)
+
+serviceAccount:
+  create: true
+
+config:
+  outputs: |
+    [OUTPUT]
+        name loki
+        match *
+        host loki-gateway.monitoring.svc.cluster.local
+        port 80
+        labels job=fluentbit, cluster=notiflex-cluster
+        label_keys stream_name
+
+resources:
+  requests:
+    cpu: 25m
+    memory: 64Mi
+  limits:
+    cpu: 100m
+    memory: 128Mi
+
+# DaemonSet으로 배포 (모든 노드에 하나씩)
+tolerations:
+  - key: node-role.kubernetes.io/master
+    operator: Exists
+    effect: NoSchedule

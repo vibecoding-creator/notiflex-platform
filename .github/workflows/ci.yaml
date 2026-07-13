@@ -49,13 +49,13 @@ jobs:
 
       - name: Update deployment image tag
         run: |
-          sed -i "s|image:.*api:.*|image: ${{ env.IMAGE_URL }}|g" k8s/smb/deployment.yaml
+          sed -i "s|image:.*api:.*|image: ${{ env.IMAGE_URL }}|g" k8s/smb/rollout.yaml
 
       - name: Commit and push deployment update
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add k8s/smb/deployment.yaml
+          git add k8s/smb/rollout.yaml
           git commit -m "chore: Update API image to ${{ env.IMAGE_TAG }}" || echo "No changes to commit"
           git push
         env:

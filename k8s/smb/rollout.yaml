@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: asia-northeast3-docker.pkg.dev/ssw-gitaiops-project/notiflex/api:sha-7495f480c715a18900a1be92939d8938ee1e7567
+        image: asia-northeast3-docker.pkg.dev/ssw-gitaiops-project/notiflex/api:sha-244d79d5ecc4a9b1b7d3fc2545897ba9b6b5d57d
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
